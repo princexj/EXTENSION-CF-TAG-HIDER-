@@ -1,0 +1,223 @@
+/* ==========================================================
+   Codeforces Problem Tag Hider - Content Styles
+   ========================================================== */
+
+/* Prevent spoiler flash before JS initializes */
+html:not([data-cfth-init]) #sidebar .sidebox:has(.tag-box) div.roundbox:has(.tag-box:not([title*="ifficult"]):not([title*="ложност"])) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* ----------------------------------------------------------
+   Problemset Table Tags (/problemset)
+   ---------------------------------------------------------- */
+html[data-cfth-enabled="true"][data-cfth-hide-problemset="true"] table.problems td > div[style*="float: right"] {
+  position: relative;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+html[data-cfth-enabled="true"][data-cfth-hide-problemset="true"] table.problems td > div[style*="float: right"]:not(:hover) {
+  filter: blur(5px) !important;
+  opacity: 0.25 !important;
+  user-select: none !important;
+}
+
+html[data-cfth-enabled="true"][data-cfth-hide-problemset="true"] table.problems td > div[style*="float: right"]:hover {
+  filter: none !important;
+  opacity: 1 !important;
+  user-select: text !important;
+}
+
+/* ----------------------------------------------------------
+   Caption Top-Links Button
+   ---------------------------------------------------------- */
+.cfth-top-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  background: #f0f2f5 !important;
+  color: #3b5998 !important;
+  border: 1px solid #c7d1db !important;
+  border-radius: 4px !important;
+  padding: 2px 8px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  line-height: 16px !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  transition: all 0.15s ease-in-out !important;
+  vertical-align: middle !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+  user-select: none !important;
+}
+
+.cfth-top-btn:hover {
+  background: #3b5998 !important;
+  color: #ffffff !important;
+  border-color: #2e4372 !important;
+  text-decoration: none !important;
+}
+
+.cfth-top-btn.revealed {
+  background: #eef7ee !important;
+  color: #2e7d32 !important;
+  border-color: #a5d6a7 !important;
+}
+
+.cfth-top-btn.revealed:hover {
+  background: #2e7d32 !important;
+  color: #ffffff !important;
+  border-color: #1b5e20 !important;
+}
+
+/* ----------------------------------------------------------
+   Mode: SPOILER (Click to Reveal)
+   ---------------------------------------------------------- */
+/* Hide topic tags */
+html[data-cfth-enabled="true"][data-cfth-mode="spoiler"][data-cfth-revealed="false"] [data-cfth-type="topic"],
+html[data-cfth-enabled="true"][data-cfth-mode="spoiler"][data-cfth-revealed="false"] #sidebar .sidebox:has(.tag-box) div.roundbox:has(.tag-box:not([title*="ifficult"]):not([title*="ложност"])) {
+  display: none !important;
+}
+
+/* When difficulty rating should ALSO be hidden */
+html[data-cfth-enabled="true"][data-cfth-mode="spoiler"][data-cfth-revealed="false"][data-cfth-keep-rating="false"] [data-cfth-type="rating"],
+html[data-cfth-enabled="true"][data-cfth-mode="spoiler"][data-cfth-revealed="false"][data-cfth-keep-rating="false"] #sidebar .sidebox:has(.tag-box) div.roundbox:has(.tag-box[title*="ifficult"]),
+html[data-cfth-enabled="true"][data-cfth-mode="spoiler"][data-cfth-revealed="false"][data-cfth-keep-rating="false"] #sidebar .sidebox:has(.tag-box) div.roundbox:has(.tag-box[title*="ложност"]) {
+  display: none !important;
+}
+
+/* Spoiler Banner Container */
+.cfth-spoiler-box {
+  clear: both;
+  margin-top: 6px;
+  margin-bottom: 4px;
+  padding: 8px 10px;
+  background: #f8f9fa;
+  border: 1px dashed #ced4da;
+  border-radius: 6px;
+  text-align: center;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.cfth-spoiler-box:hover {
+  background: #eef2f7;
+  border-color: #3b5998;
+}
+
+.cfth-spoiler-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  background: #ffffff;
+  color: #1c3d5a;
+  border: 1px solid #b8c2cc;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.cfth-spoiler-btn:hover {
+  background: #3b5998;
+  color: #ffffff;
+  border-color: #2b4374;
+}
+
+.cfth-spoiler-hint {
+  display: block;
+  font-size: 10.5px;
+  color: #6c757d;
+  margin-top: 4px;
+}
+
+/* ----------------------------------------------------------
+   Mode: HOVER (Hover to Reveal)
+   ---------------------------------------------------------- */
+html[data-cfth-enabled="true"][data-cfth-mode="hover"][data-cfth-revealed="false"] [data-cfth-type="topic"],
+html[data-cfth-enabled="true"][data-cfth-mode="hover"][data-cfth-revealed="false"] #sidebar .sidebox:has(.tag-box) div.roundbox:has(.tag-box:not([title*="ifficult"]):not([title*="ложност"])) {
+  filter: blur(5px) !important;
+  opacity: 0.25 !important;
+  user-select: none !important;
+  transition: filter 0.2s ease, opacity 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+html[data-cfth-enabled="true"][data-cfth-mode="hover"][data-cfth-revealed="false"] #sidebar .sidebox:has(.tag-box):hover [data-cfth-type="topic"],
+html[data-cfth-enabled="true"][data-cfth-mode="hover"][data-cfth-revealed="false"] #sidebar .sidebox:has(.tag-box):hover div.roundbox:has(.tag-box:not([title*="ifficult"]):not([title*="ложност"])) {
+  filter: none !important;
+  opacity: 1 !important;
+  user-select: text !important;
+}
+
+/* If difficulty also hidden in hover mode */
+html[data-cfth-enabled="true"][data-cfth-mode="hover"][data-cfth-revealed="false"][data-cfth-keep-rating="false"] [data-cfth-type="rating"],
+html[data-cfth-enabled="true"][data-cfth-mode="hover"][data-cfth-revealed="false"][data-cfth-keep-rating="false"] #sidebar .sidebox:has(.tag-box) div.roundbox:has(.tag-box[title*="ifficult"]),
+html[data-cfth-enabled="true"][data-cfth-mode="hover"][data-cfth-revealed="false"][data-cfth-keep-rating="false"] #sidebar .sidebox:has(.tag-box) div.roundbox:has(.tag-box[title*="ложност"]) {
+  filter: blur(5px) !important;
+  opacity: 0.25 !important;
+  user-select: none !important;
+  transition: filter 0.2s ease, opacity 0.2s ease !important;
+}
+
+html[data-cfth-enabled="true"][data-cfth-mode="hover"][data-cfth-revealed="false"][data-cfth-keep-rating="false"] #sidebar .sidebox:has(.tag-box):hover [data-cfth-type="rating"],
+html[data-cfth-enabled="true"][data-cfth-mode="hover"][data-cfth-revealed="false"][data-cfth-keep-rating="false"] #sidebar .sidebox:has(.tag-box):hover div.roundbox:has(.tag-box[title*="ifficult"]),
+html[data-cfth-enabled="true"][data-cfth-mode="hover"][data-cfth-revealed="false"][data-cfth-keep-rating="false"] #sidebar .sidebox:has(.tag-box):hover div.roundbox:has(.tag-box[title*="ложност"]) {
+  filter: none !important;
+  opacity: 1 !important;
+  user-select: text !important;
+}
+
+/* ----------------------------------------------------------
+   Mode: HIDDEN (Completely Hidden)
+   ---------------------------------------------------------- */
+html[data-cfth-enabled="true"][data-cfth-mode="hidden"][data-cfth-revealed="false"] [data-cfth-type="topic"],
+html[data-cfth-enabled="true"][data-cfth-mode="hidden"][data-cfth-revealed="false"] #sidebar .sidebox:has(.tag-box) div.roundbox:has(.tag-box:not([title*="ifficult"]):not([title*="ложност"])) {
+  display: none !important;
+}
+
+html[data-cfth-enabled="true"][data-cfth-mode="hidden"][data-cfth-revealed="false"][data-cfth-keep-rating="false"] [data-cfth-type="rating"],
+html[data-cfth-enabled="true"][data-cfth-mode="hidden"][data-cfth-revealed="false"][data-cfth-keep-rating="false"] #sidebar .sidebox:has(.tag-box) div.roundbox:has(.tag-box[title*="ifficult"]),
+html[data-cfth-enabled="true"][data-cfth-mode="hidden"][data-cfth-revealed="false"][data-cfth-keep-rating="false"] #sidebar .sidebox:has(.tag-box) div.roundbox:has(.tag-box[title*="ложност"]) {
+  display: none !important;
+}
+
+/* When entire box is hidden in hidden mode */
+html[data-cfth-enabled="true"][data-cfth-mode="hidden"][data-cfth-revealed="false"][data-cfth-keep-rating="false"] #sidebar .sidebox:has(.tag-box) {
+  display: none !important;
+}
+
+/* ----------------------------------------------------------
+   Dark Mode Support (Codeforces Dark Theme extension/styles)
+   ---------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  .cfth-top-btn {
+    background: #23272e !important;
+    color: #61afef !important;
+    border-color: #3e4451 !important;
+  }
+  .cfth-top-btn:hover {
+    background: #61afef !important;
+    color: #1e1e1e !important;
+  }
+  .cfth-spoiler-box {
+    background: #1e2227;
+    border-color: #3e4451;
+  }
+  .cfth-spoiler-btn {
+    background: #282c34;
+    color: #abb2bf;
+    border-color: #4b5263;
+  }
+  .cfth-spoiler-btn:hover {
+    background: #61afef;
+    color: #1e1e1e;
+  }
+  .cfth-spoiler-hint {
+    color: #7f848e;
+  }
+}

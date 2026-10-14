@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codeforces Tag Hider</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --card-bg: #f8f9fa;
+      --text: #212529;
+      --text-muted: #6c757d;
+      --border: #e9ecef;
+      --primary: #3182ce;
+      --primary-hover: #2b6cb0;
+      --switch-on: #38a169;
+      --switch-off: #cbd5e0;
+      --accent: #ebf8ff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a202c;
+        --card-bg: #2d3748;
+        --text: #f7fafc;
+        --text-muted: #a0aec0;
+        --border: #4a5568;
+        --primary: #4299e1;
+        --primary-hover: #63b3ed;
+        --switch-on: #48bb78;
+        --switch-off: #4a5568;
+        --accent: #2b4365;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      padding: 16px;
+      font-size: 13px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 14px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-img {
+      width: 24px;
+      height: 24px;
+      border-radius: 5px;
+    }
+
+    .title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+
+    .version-tag {
+      font-size: 10px;
+      padding: 2px 6px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Master Switch Card */
+    .master-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 14px;
+    }
+
+    .master-label {
+      font-weight: 600;
+      font-size: 13.5px;
+    }
+
+    .master-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Toggle Switch */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: var(--switch-off);
+      transition: .25s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .25s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    input:checked + .slider {
+      background-color: var(--switch-on);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    /* Section */
+    .section-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    /* Mode Selector */
+    .mode-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .mode-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--card-bg);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .mode-option:hover {
+      border-color: var(--primary);
+    }
+
+    .mode-option.selected {
+      border-color: var(--primary);
+      background: var(--accent);
+    }
+
+    .mode-option input[type="radio"] {
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .mode-title {
+      font-size: 12.5px;
+      font-weight: 600;
+    }
+
+    .mode-desc {
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+
+    /* Checkbox Options */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 12.5px;
+      user-select: none;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      margin-top: 2px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .checkbox-text {
+      font-weight: 500;
+    }
+
+    .checkbox-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--switch-on);
+    }
+
+    .dot.disabled {
+      background: #e53e3e;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <img src="icons/icon48.png" alt="Icon" class="logo-img">
+      <span class="title">Tag Hider</span>
+    </div>
+    <span class="version-tag">v1.0</span>
+  </div>
+
+  <!-- Master Switch -->
+  <div class="master-card">
+    <div>
+      <div class="master-label">Hide Problem Tags</div>
+      <div class="master-sub">Prevent spoiler tags on Codeforces</div>
+    </div>
+    <label class="switch">
+      <input type="checkbox" id="toggle-enabled" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div id="controls-body">
+    <!-- Reveal Mode -->
+    <div class="section-title">Display Mode</div>
+    <div class="mode-group">
+      <label class="mode-option" id="mode-opt-spoiler">
+        <input type="radio" name="display-mode" value="spoiler" checked>
+        <div>
+          <div class="mode-title">Click to Reveal (Spoiler)</div>
+          <div class="mode-desc">Hidden with an interactive reveal button</div>
+        </div>
+      </label>
+
+      <label class="mode-option" id="mode-opt-hover">
+        <input type="radio" name="display-mode" value="hover">
+        <div>
+          <div class="mode-title">Hover to Reveal</div>
+          <div class="mode-desc">Tags are blurred until you hover your mouse</div>
+        </div>
+      </label>
+
+      <label class="mode-option" id="mode-opt-hidden">
+        <input type="radio" name="display-mode" value="hidden">
+        <div>
+          <div class="mode-title">Always Hidden</div>
+          <div class="mode-desc">Tags are completely removed from view</div>
+        </div>
+      </label>
+    </div>
+
+    <!-- Additional Options -->
+    <div class="section-title">Preferences</div>
+    <div class="options-group">
+      <label class="checkbox-label">
+        <input type="checkbox" id="check-keep-rating" checked>
+        <div>
+          <span class="checkbox-text">Keep Difficulty Rating Visible</span>
+          <div class="checkbox-desc">Shows problem rating (e.g. *1700) while hiding algorithm tags</div>
+        </div>
+      </label>
+
+      <label class="checkbox-label">
+        <input type="checkbox" id="check-hide-problemset" checked>
+        <div>
+          <span class="checkbox-text">Hide Tags on Problemset List</span>
+          <div class="checkbox-desc">Blurs tag links in the /problemset table rows</div>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="badge-status">
+      <span class="dot" id="status-dot"></span>
+      <span id="status-text">Active on Codeforces</span>
+    </div>
+    <span>For Brave & Chrome</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# Chrome Web Store packages & distribution
+*.zip
+dist/
+build/
+package/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log

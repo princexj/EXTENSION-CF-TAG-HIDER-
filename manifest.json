@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "Codeforces Problem Tag Hider",
+  "version": "1.0.0",
+  "description": "Hides spoiler problem tags (e.g. brute force, dp, greedy) on Codeforces with click-to-reveal, hover peek, and rating preservation.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "*://codeforces.com/*",
+    "*://*.codeforces.com/*",
+    "*://codeforces.net/*",
+    "*://*.codeforces.net/*",
+    "*://codeforc.es/*",
+    "*://*.codeforc.es/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Codeforces Tag Hider Settings"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://codeforces.com/*",
+        "*://*.codeforces.com/*",
+        "*://codeforces.net/*",
+        "*://*.codeforces.net/*",
+        "*://codeforc.es/*",
+        "*://*.codeforc.es/*"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}
